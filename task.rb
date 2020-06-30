@@ -237,15 +237,12 @@ class Zoo
 
   def info_entry_fee(user) 
 
+    entry_fee = 
     case user.age
-    when 0..5
-      entry_fee = @entry_fee_infant
-    when 6..12
-      entry_fee = @entry_fee_children
-    when 13..64
-      entry_fee = @entry_fee_adult
-    when 65..120
-      entry_fee = @entry_fee_senior
+    when 0..5 then @entry_fee_infant
+    when 6..12 then @entry_fee_children
+    when 13..64 then @entry_fee_adult
+    when 65..120 then @entry_fee_senior
     end
 
       puts "#{user.name}さんの入場料金は #{entry_fee} 円です。"
