@@ -179,14 +179,14 @@ end
 
 class UserQ18
   # 以下に回答を記載
-  attr_accessor :name, :age
+  
   def initialize(**params)
     @name = params[:name]
     @age = params[:age]
   end
   
   def introduce
-    if age >= 15
+    if @age >= 15
        "こんにちは，#{@name}と申します。宜しくお願いいたします。"
     else
        "はいさいまいど〜，#{@name}です！！！"
@@ -228,22 +228,27 @@ end
 
 class Zoo
   # 以下に回答を記載
-  # attr_accessor :name, :entry_fee
-  def initialize(**params)
-    @name = params[:name]
-    @entry_fee = params[:entry_fee]
+  def initialize(name:, entry_fee:)
+    @entry_fee_infant = entry_fee[:infant]
+    @entry_fee_children = entry_fee[:children]
+    @entry_fee_adult = entry_fee[:adult]
+    @entry_fee_senior = entry_fee[:senior]
   end
 
   def info_entry_fee(user) 
-    if user.age <= 5
-      puts "#{user.name}さんの入場料金は #{@entry_fee[:infant]} 円です。"
-    elsif user.age >= 6 && user.age <= 12
-      puts "#{user.name}さんの入場料金は #{@entry_fee[:children]} 円です。"
-    elsif user.age >= 13 && user.age <= 64
-      puts "#{user.name}さんの入場料金は #{@entry_fee[:adult]} 円です。"
-    elsif user.age >= 65 && user.age <= 120
-      puts "#{user.name}さんの入場料金は #{@entry_fee[:senior]} 円です。"
+
+    case user.age
+    when 0..5
+      entry_fee = @entry_fee_infant
+    when 6..12
+      entry_fee = @entry_fee_children
+    when 13..64
+      entry_fee = @entry_fee_adult
+    when 65..120
+      entry_fee = @entry_fee_senior
     end
+
+      puts "#{user.name}さんの入場料金は #{entry_fee} 円です。"
   end
 end
 
